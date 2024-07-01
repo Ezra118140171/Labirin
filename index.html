@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Monitoring Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="judul">
+            <div class="navbar-brand mx-auto">Labirin</div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <section class="summary">
+            <div>
+                <h2>Kelembaban tanah 1</h2>
+                <div id="tanah1" class="value">Loading...</div>
+            </div>
+            <div>
+                <h2>Suhu</h2>
+                <div id="suhu" class="value">Loading...</div>
+            </div>
+            <div>
+                <h2>Hasil Perhitungan Fuzzy 1</h2>
+                <div id="hasil1" class="value">Loading...</div>
+            </div>
+            <div>
+                <h2>Kelembaban tanah 2</h2>
+                <div id="tanah2" class="value">Loading...</div>
+            </div>
+            <div>
+                <h2>Hasil Perhitungan Fuzzy 2</h2>
+                <div id="hasil2" class="value">Loading...</div>
+            </div>
+        </section>
+        <div class="footer" id="waktu" style="text-align: center;">Penyiraman terakhir: Loading...</div>
+    </div>
+
+    <!-- Tabel Catatan Waktu -->
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Waktu</th>
+                    <th>Titik 1</th>
+                    <th>Titik 2</th>
+                    <th>Hasil 1</th>
+                    <th>Hasil 2</th>
+                    <th>Suhu</th>
+                </tr>
+            </thead>
+            <tbody id="tbody1"></tbody>
+        </table>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-database-compat.js"></script>
+
+    <script defer>
+        // See: https://firebase.google.com/docs/web/learn-more#config-object
+        const firebaseConfig = {
+            // ...
+            // The value of `databaseURL` depends on the location of the database
+            databaseURL: "https://tugasakhirlabirin-default-rtdb.asia-southeast1.firebasedatabase.app/",
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+
+        // Initialize Realtime Database and get a reference to the service
+        const database = firebase.database();
+        console.log(database);
+        const Sensors = database.ref('Sensor/');
+        Sensors.on('value', (snapshot) => {
+            var data = snapshot.val();
+            console.log(data);
+
+            // Update elements with the latest data
+            document.getElementById('suhu').innerHTML = `${data.suhu} °C`;
+            document.getElementById('tanah1').innerHTML = `${data.tanah1} %`;
+            document.getElementById('hasil1').innerHTML = `${data.hasil1} mL`;
+            document.getElementById('tanah2').innerHTML = `${data.tanah2} %`;
+            document.getElementById('hasil2').innerHTML = `${data.hasil2} mL`;
+
+            // Get the table body element
+            var tbody = document.getElementById('tbody1');
+
+            // Get current time
+            var currentTime = new Date().toLocaleString();
+
+            // Determine the row number
+            var rowNumber = tbody.rows.length + 1;
+
+            // Create a new row and cells
+            var newRow = tbody.insertRow();
+            newRow.insertCell(0).innerHTML = rowNumber;
+            newRow.insertCell(1).innerHTML = currentTime;
+            newRow.insertCell(2).innerHTML = `${data.tanah1} %`;
+            newRow.insertCell(3).innerHTML = `${data.tanah2} %`;
+            newRow.insertCell(4).innerHTML = `${data.hasil1} mL`;
+            newRow.insertCell(5).innerHTML = `${data.hasil2} mL`;
+            newRow.insertCell(6).innerHTML = `${data.suhu} °C`;
+
+            // Update last watering time
+            document.getElementById('waktu').innerHTML = `Penyiraman terakhir: ${currentTime}`;
+        });
+    </script>
+</body>
+
+</html>
