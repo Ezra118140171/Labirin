@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.navbar {
+    background-color: #296A4C; /* Green color */
+    text-align: center;
+    color: #fff; /* White text */
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.container {
+    background-color: #f4f4f4;
+    margin: auto;
+    width: 50%;
+    padding: 1rem;
+}
+
+.judul{
+    margin: auto;
+    width: 50%;
+    padding: 1rem;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.summary div {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.summary h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.summary .value {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.summary .footer {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+table {
+    width: 80%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin: 20px auto;
+    font-size: 18px;
+    text-align: left;
+}
+
+table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #dddddd;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
